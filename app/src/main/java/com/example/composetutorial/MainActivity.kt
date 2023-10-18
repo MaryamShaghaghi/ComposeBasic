@@ -42,19 +42,36 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 private fun MyApp() {
-    // TODO: This state should be hoisted
-    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
-    if (shouldShowOnboarding) {
-        OnboardingScreen(onCantinueClicked = { shouldShowOnboarding = false})
+    var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true) }
+    if (shouldShowOnBoarding) {
+        OnBoardingScreen(onContinueClicked = { shouldShowOnBoarding = false})
     }else {
         Greetings()
     }
 
 }
+@Composable
+fun OnBoardingScreen(onContinueClicked: () -> Unit) {
+    Surface {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Welcome to the Basics CodeLab!")
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = onContinueClicked
+            ) {
+                Text("Continue")
+            }
+        }
+
+    }
+}
 
 @Composable
 private fun Greetings(names: List<String> = List(100) {"$it"}) {
-    // A surface container using the 'background' color from the theme
     Surface(color = MaterialTheme.colorScheme.background) {
        Column(modifier = Modifier.padding(vertical = 4.dp)) {
            LazyColumn {
@@ -71,7 +88,7 @@ private fun Greetings(names: List<String> = List(100) {"$it"}) {
 fun Greeting(name: String) {
     var expanded by remember {mutableStateOf(false)}
     val extraPadding by animateDpAsState(targetValue =  if (expanded) 48.dp else 0.dp,
-    animationSpec = tween(delayMillis = 2000)
+    animationSpec = tween(delayMillis = 1000)
     )
     Surface(color = MaterialTheme.colorScheme.primary,
     modifier = Modifier.padding(8.dp, 4.dp)){
@@ -88,32 +105,15 @@ fun Greeting(name: String) {
           
       }
         }
-}
-@Composable
-fun OnboardingScreen(onCantinueClicked: () -> Unit) {
-   Surface {
-       Column(
-           modifier = Modifier.fillMaxSize(),
-           verticalArrangement = Arrangement.Center,
-           horizontalAlignment = Alignment.CenterHorizontally
-       ) {
-           Text("Welcome to the Basics Codelab!")
-           Button(
-               modifier = Modifier.padding(vertical = 24.dp),
-               onClick = onCantinueClicked
-           ) {
-               Text("Continue")
-           }
-       }
 
-   }
 }
+
 
 @Preview(showBackground = true, widthDp = 320, heightDp = 320)
 @Composable
-fun OnboardingPreview() {
+fun OnBoardingPreview() {
     ComposeTutorialTheme {
-        OnboardingScreen(onCantinueClicked = {})
+        OnBoardingScreen(onContinueClicked = {})
     }
 }
 
