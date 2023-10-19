@@ -1,5 +1,6 @@
 package com.example.composetutorial
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -124,3 +125,17 @@ fun GreetingPreview() {
       MyApp()
     }
 }
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun MyAppPreview() {
+    ComposeTutorialTheme {
+        MyApp()
+    }
+}
+
+
+
+
+
+
